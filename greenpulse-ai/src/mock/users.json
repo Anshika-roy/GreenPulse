@@ -1,0 +1,8 @@
+{
+  "id": "usr-001",
+  "name": "Rohit Sharma",
+  "role": "IT Administrator",
+  "email": "rohit.sharma@acmeglobal.com",
+  "avatarUrl": "",
+  "company": { "id": "co-001", "name": "Acme Global Corp." }
+}

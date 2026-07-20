@@ -1,0 +1,7 @@
+[
+  { "id": "mnt-001", "date": "2025-05-20", "title": "12 Batteries", "description": "Replacement Scheduled", "location": "Mumbai HQ", "priority": "high", "deviceIds": ["dev-001", "dev-006", "dev-011"] },
+  { "id": "mnt-002", "date": "2025-05-22", "title": "8 SSDs", "description": "Maintenance Window", "location": "Bengaluru Office", "priority": "medium", "deviceIds": ["dev-002", "dev-014"] },
+  { "id": "mnt-003", "date": "2025-05-25", "title": "18 Devices", "description": "General Checkup", "location": "Delhi Office", "priority": "low", "deviceIds": ["dev-003", "dev-004", "dev-005"] },
+  { "id": "mnt-004", "date": "2025-05-29", "title": "6 Fans", "description": "Cleaning Scheduled", "location": "Pune Office", "priority": "medium", "deviceIds": ["dev-003"] },
+  { "id": "mnt-005", "date": "2025-06-02", "title": "4 Displays", "description": "Diagnostics Window", "location": "Chennai Office", "priority": "low", "deviceIds": ["dev-016"] }
+]

@@ -1,0 +1,1560 @@
+[
+  {
+    "id": "dev-001",
+    "assetTag": "LAP-IT-1021",
+    "model": "ThinkPad T14 Gen 3",
+    "category": "laptop",
+    "healthScore": 42,
+    "riskLevel": "high",
+    "issue": {
+      "code": "BATTERY_DEGRADATION",
+      "label": "Battery Degradation",
+      "detectedAt": "2025-05-10"
+    },
+    "aiConfidence": 94,
+    "recommendation": {
+      "action": "Replace in 14 days",
+      "actionType": "replace",
+      "etaDate": "2025-05-31",
+      "confidence": 94
+    },
+    "status": "active",
+    "healthHistory": [
+      37,
+      34,
+      42,
+      41,
+      41,
+      38,
+      37,
+      36,
+      47,
+      42
+    ],
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Engineering"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-03-15",
+    "warrantyExpiresAt": "2025-06-30",
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-002",
+    "assetTag": "LAP-IT-0978",
+    "model": "ThinkBook 15 G4",
+    "category": "laptop",
+    "healthScore": 55,
+    "riskLevel": "high",
+    "issue": {
+      "code": "SSD_HEALTH_LOW",
+      "label": "SSD Health Low",
+      "detectedAt": "2025-05-09"
+    },
+    "aiConfidence": 89,
+    "recommendation": {
+      "action": "Backup & Replace",
+      "actionType": "backup-replace",
+      "etaDate": "2025-06-02",
+      "confidence": 89
+    },
+    "status": "active",
+    "healthHistory": [
+      54,
+      63,
+      47,
+      53,
+      60,
+      54,
+      61,
+      55,
+      47,
+      55
+    ],
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "Finance"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-03-15",
+    "warrantyExpiresAt": "2025-06-30",
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-003",
+    "assetTag": "LAP-IT-0546",
+    "model": "ThinkPad X1 Carbon",
+    "category": "laptop",
+    "healthScore": 58,
+    "riskLevel": "high",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-11"
+    },
+    "aiConfidence": 91,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-05-28",
+      "confidence": 91
+    },
+    "status": "active",
+    "healthHistory": [
+      54,
+      56,
+      60,
+      53,
+      52,
+      62,
+      53,
+      61,
+      61,
+      58
+    ],
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Marketing"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-03-15",
+    "warrantyExpiresAt": "2025-06-30",
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-004",
+    "assetTag": "LAP-IT-0882",
+    "model": "ThinkPad E14 Gen 2",
+    "category": "laptop",
+    "healthScore": 70,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 72,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-05",
+      "confidence": 72
+    },
+    "status": "active",
+    "healthHistory": [
+      65,
+      74,
+      64,
+      71,
+      73,
+      68,
+      64,
+      63,
+      69,
+      70
+    ],
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Customer Success"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-03-15",
+    "warrantyExpiresAt": "2025-06-30",
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-005",
+    "assetTag": "LAP-IT-0771",
+    "model": "Legion 5 Pro",
+    "category": "laptop",
+    "healthScore": 75,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-12"
+    },
+    "aiConfidence": 68,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-06",
+      "confidence": 68
+    },
+    "status": "active",
+    "healthHistory": [
+      70,
+      79,
+      75,
+      81,
+      78,
+      72,
+      78,
+      78,
+      73,
+      75
+    ],
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "IT Operations"
+    },
+    "location": "Hyderabad Office",
+    "purchaseDate": "2022-03-15",
+    "warrantyExpiresAt": "2025-06-30",
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-006",
+    "assetTag": "LAP-IT-1006",
+    "model": "MacBook Air M2",
+    "category": "laptop",
+    "status": "in-repair",
+    "healthScore": 69,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-13"
+    },
+    "aiConfidence": 70,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-06-09",
+      "confidence": 70
+    },
+    "owner": {
+      "name": "Sneha Iyer",
+      "department": "Marketing"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      60,
+      66,
+      60,
+      69,
+      71,
+      67,
+      61,
+      65,
+      77,
+      69
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-007",
+    "assetTag": "LAP-IT-1007",
+    "model": "Dell Latitude 5440",
+    "category": "laptop",
+    "status": "in-repair",
+    "healthScore": 76,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-05"
+    },
+    "aiConfidence": 86,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-09",
+      "confidence": 86
+    },
+    "owner": {
+      "name": "Karan Mehta",
+      "department": "Sales"
+    },
+    "location": "Hyderabad Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      83,
+      83,
+      74,
+      84,
+      79,
+      84,
+      78,
+      77,
+      73,
+      70
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-008",
+    "assetTag": "LAP-IT-1008",
+    "model": "HP EliteBook 840",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 40,
+    "riskLevel": "high",
+    "issue": {
+      "code": "SLOW_BOOT",
+      "label": "Slow Boot Times",
+      "detectedAt": "2025-05-06"
+    },
+    "aiConfidence": 58,
+    "recommendation": {
+      "action": "Monitor",
+      "actionType": "monitor",
+      "etaDate": "2025-06-26",
+      "confidence": 58
+    },
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "IT Operations"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      42,
+      42,
+      49,
+      44,
+      46,
+      38,
+      47,
+      30,
+      33,
+      47
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-009",
+    "assetTag": "LAP-IT-1009",
+    "model": "Dell XPS 13",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 84,
+    "riskLevel": "low",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-10"
+    },
+    "aiConfidence": 96,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-14",
+      "confidence": 96
+    },
+    "owner": {
+      "name": "Karan Mehta",
+      "department": "HR"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      82,
+      90,
+      79,
+      90,
+      77,
+      94,
+      83,
+      94,
+      90,
+      93
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-010",
+    "assetTag": "LAP-IT-1010",
+    "model": "HP ProBook 450",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 44,
+    "riskLevel": "high",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-11"
+    },
+    "aiConfidence": 78,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-16",
+      "confidence": 78
+    },
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Engineering"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      43,
+      41,
+      35,
+      41,
+      52,
+      36,
+      36,
+      49,
+      36,
+      51
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-011",
+    "assetTag": "LAP-IT-1011",
+    "model": "Surface Laptop 5",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 43,
+    "riskLevel": "high",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-09"
+    },
+    "aiConfidence": 97,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-06-17",
+      "confidence": 97
+    },
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "Sales"
+    },
+    "location": "Chennai Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      39,
+      42,
+      45,
+      53,
+      44,
+      47,
+      49,
+      47,
+      36,
+      40
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-012",
+    "assetTag": "DSK-IT-1012",
+    "model": "ThinkCentre M90",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 39,
+    "riskLevel": "high",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 76,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-01",
+      "confidence": 76
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Marketing"
+    },
+    "location": "Hyderabad Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      30,
+      36,
+      31,
+      30,
+      39,
+      31,
+      45,
+      36,
+      37,
+      44
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-013",
+    "assetTag": "DSK-IT-1013",
+    "model": "Dell OptiPlex 7020",
+    "category": "desktop",
+    "status": "in-repair",
+    "healthScore": 69,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 63,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-26",
+      "confidence": 63
+    },
+    "owner": {
+      "name": "Divya Menon",
+      "department": "Customer Success"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      65,
+      62,
+      62,
+      72,
+      70,
+      72,
+      72,
+      73,
+      60,
+      79
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-014",
+    "assetTag": "LAP-IT-1014",
+    "model": "ThinkPad T14 Gen 3",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 38,
+    "riskLevel": "high",
+    "issue": {
+      "code": "SSD_HEALTH_LOW",
+      "label": "SSD Health Low",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 80,
+    "recommendation": {
+      "action": "Backup & Replace",
+      "actionType": "backup-replace",
+      "etaDate": "2025-06-07",
+      "confidence": 80
+    },
+    "owner": {
+      "name": "Sneha Iyer",
+      "department": "IT Operations"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      32,
+      41,
+      33,
+      36,
+      42,
+      35,
+      30,
+      42,
+      45,
+      31
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-015",
+    "assetTag": "LAP-IT-1015",
+    "model": "ThinkBook 15 G4",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 76,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "BATTERY_DEGRADATION",
+      "label": "Battery Degradation",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 89,
+    "recommendation": {
+      "action": "Replace in 7 days",
+      "actionType": "replace",
+      "etaDate": "2025-06-06",
+      "confidence": 89
+    },
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "HR"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      72,
+      78,
+      67,
+      71,
+      78,
+      66,
+      78,
+      74,
+      80,
+      75
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-016",
+    "assetTag": "LAP-IT-1016",
+    "model": "ThinkPad X1 Carbon",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 79,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "KEYBOARD_FAULT",
+      "label": "Keyboard Fault",
+      "detectedAt": "2025-05-07"
+    },
+    "aiConfidence": 90,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-10",
+      "confidence": 90
+    },
+    "owner": {
+      "name": "Sneha Iyer",
+      "department": "Engineering"
+    },
+    "location": "Chennai Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      86,
+      70,
+      79,
+      70,
+      70,
+      87,
+      84,
+      85,
+      85,
+      74
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-017",
+    "assetTag": "LAP-IT-1017",
+    "model": "ThinkPad E14 Gen 2",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 96,
+    "riskLevel": "low",
+    "issue": {
+      "code": "BATTERY_DEGRADATION",
+      "label": "Battery Degradation",
+      "detectedAt": "2025-05-03"
+    },
+    "aiConfidence": 87,
+    "recommendation": {
+      "action": "Replace in 7 days",
+      "actionType": "replace",
+      "etaDate": "2025-06-20",
+      "confidence": 87
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Marketing"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      98,
+      89,
+      104,
+      93,
+      104,
+      105,
+      87,
+      105,
+      88,
+      99
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-018",
+    "assetTag": "DSK-IT-1018",
+    "model": "Legion 5 Pro",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 94,
+    "riskLevel": "low",
+    "issue": {
+      "code": "DISPLAY_FLICKER",
+      "label": "Display Flicker",
+      "detectedAt": "2025-05-08"
+    },
+    "aiConfidence": 71,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-09",
+      "confidence": 71
+    },
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "Sales"
+    },
+    "location": "Hyderabad Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      104,
+      93,
+      98,
+      94,
+      86,
+      84,
+      98,
+      103,
+      102,
+      87
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-019",
+    "assetTag": "LAP-IT-1019",
+    "model": "MacBook Air M2",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 69,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "SSD_HEALTH_LOW",
+      "label": "SSD Health Low",
+      "detectedAt": "2025-05-05"
+    },
+    "aiConfidence": 68,
+    "recommendation": {
+      "action": "Backup & Replace",
+      "actionType": "backup-replace",
+      "etaDate": "2025-06-12",
+      "confidence": 68
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Sales"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      68,
+      64,
+      73,
+      76,
+      68,
+      78,
+      79,
+      75,
+      59,
+      76
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-020",
+    "assetTag": "LAP-IT-1020",
+    "model": "Dell Latitude 5440",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 94,
+    "riskLevel": "low",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-09"
+    },
+    "aiConfidence": 97,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-04",
+      "confidence": 97
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Marketing"
+    },
+    "location": "Chennai Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      88,
+      92,
+      93,
+      103,
+      90,
+      94,
+      90,
+      104,
+      92,
+      100
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-021",
+    "assetTag": "LAP-IT-1021",
+    "model": "HP EliteBook 840",
+    "category": "laptop",
+    "status": "in-repair",
+    "healthScore": 51,
+    "riskLevel": "high",
+    "issue": {
+      "code": "SLOW_BOOT",
+      "label": "Slow Boot Times",
+      "detectedAt": "2025-05-09"
+    },
+    "aiConfidence": 58,
+    "recommendation": {
+      "action": "Monitor",
+      "actionType": "monitor",
+      "etaDate": "2025-06-02",
+      "confidence": 58
+    },
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Finance"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      61,
+      49,
+      46,
+      55,
+      58,
+      54,
+      58,
+      41,
+      44,
+      43
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-022",
+    "assetTag": "LAP-IT-1022",
+    "model": "Dell XPS 13",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 69,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-14"
+    },
+    "aiConfidence": 57,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-06-05",
+      "confidence": 57
+    },
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Finance"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      60,
+      70,
+      65,
+      66,
+      62,
+      70,
+      76,
+      72,
+      78,
+      63
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-023",
+    "assetTag": "LAP-IT-1023",
+    "model": "HP ProBook 450",
+    "category": "laptop",
+    "status": "in-repair",
+    "healthScore": 90,
+    "riskLevel": "low",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-01"
+    },
+    "aiConfidence": 65,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-06",
+      "confidence": 65
+    },
+    "owner": {
+      "name": "Neha Gupta",
+      "department": "Customer Success"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      87,
+      88,
+      85,
+      83,
+      92,
+      81,
+      95,
+      87,
+      86,
+      94
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-024",
+    "assetTag": "LAP-IT-1024",
+    "model": "Surface Laptop 5",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 54,
+    "riskLevel": "high",
+    "issue": {
+      "code": "DISPLAY_FLICKER",
+      "label": "Display Flicker",
+      "detectedAt": "2025-05-07"
+    },
+    "aiConfidence": 69,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-13",
+      "confidence": 69
+    },
+    "owner": {
+      "name": "Neha Gupta",
+      "department": "Finance"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      52,
+      55,
+      64,
+      60,
+      56,
+      61,
+      54,
+      44,
+      47,
+      52
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-025",
+    "assetTag": "DSK-IT-1025",
+    "model": "ThinkCentre M90",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 72,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-14"
+    },
+    "aiConfidence": 71,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-06-12",
+      "confidence": 71
+    },
+    "owner": {
+      "name": "Neha Gupta",
+      "department": "HR"
+    },
+    "location": "Chennai Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      78,
+      65,
+      74,
+      80,
+      68,
+      70,
+      63,
+      75,
+      62,
+      78
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-026",
+    "assetTag": "DSK-IT-1026",
+    "model": "Dell OptiPlex 7020",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 58,
+    "riskLevel": "high",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-11"
+    },
+    "aiConfidence": 82,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-22",
+      "confidence": 82
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Marketing"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      64,
+      57,
+      61,
+      58,
+      60,
+      57,
+      65,
+      52,
+      54,
+      61
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-027",
+    "assetTag": "LAP-IT-1027",
+    "model": "ThinkPad T14 Gen 3",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 78,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "KEYBOARD_FAULT",
+      "label": "Keyboard Fault",
+      "detectedAt": "2025-05-13"
+    },
+    "aiConfidence": 66,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-18",
+      "confidence": 66
+    },
+    "owner": {
+      "name": "Aditya Rao",
+      "department": "Finance"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      74,
+      81,
+      86,
+      87,
+      88,
+      78,
+      82,
+      82,
+      82,
+      74
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-028",
+    "assetTag": "LAP-IT-1028",
+    "model": "ThinkBook 15 G4",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 85,
+    "riskLevel": "low",
+    "issue": {
+      "code": "SLOW_BOOT",
+      "label": "Slow Boot Times",
+      "detectedAt": "2025-05-17"
+    },
+    "aiConfidence": 65,
+    "recommendation": {
+      "action": "Monitor",
+      "actionType": "monitor",
+      "etaDate": "2025-06-22",
+      "confidence": 65
+    },
+    "owner": {
+      "name": "Neha Gupta",
+      "department": "Engineering"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      84,
+      82,
+      81,
+      79,
+      75,
+      76,
+      82,
+      90,
+      94,
+      77
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-029",
+    "assetTag": "LAP-IT-1029",
+    "model": "ThinkPad X1 Carbon",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 61,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "SLOW_BOOT",
+      "label": "Slow Boot Times",
+      "detectedAt": "2025-05-13"
+    },
+    "aiConfidence": 95,
+    "recommendation": {
+      "action": "Monitor",
+      "actionType": "monitor",
+      "etaDate": "2025-06-16",
+      "confidence": 95
+    },
+    "owner": {
+      "name": "Arjun Nair",
+      "department": "Sales"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      71,
+      51,
+      54,
+      64,
+      58,
+      56,
+      67,
+      65,
+      52,
+      68
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-030",
+    "assetTag": "LAP-IT-1030",
+    "model": "ThinkPad E14 Gen 2",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 93,
+    "riskLevel": "low",
+    "issue": {
+      "code": "RAM_ERRORS",
+      "label": "RAM Errors",
+      "detectedAt": "2025-05-15"
+    },
+    "aiConfidence": 62,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-22",
+      "confidence": 62
+    },
+    "owner": {
+      "name": "Neha Gupta",
+      "department": "Customer Success"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      102,
+      99,
+      96,
+      100,
+      97,
+      88,
+      98,
+      97,
+      91,
+      90
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-031",
+    "assetTag": "DSK-IT-1031",
+    "model": "Legion 5 Pro",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 84,
+    "riskLevel": "low",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-09"
+    },
+    "aiConfidence": 88,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-15",
+      "confidence": 88
+    },
+    "owner": {
+      "name": "Priya Sharma",
+      "department": "Marketing"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      81,
+      82,
+      84,
+      84,
+      91,
+      76,
+      78,
+      78,
+      81,
+      86
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-032",
+    "assetTag": "LAP-IT-1032",
+    "model": "MacBook Air M2",
+    "category": "laptop",
+    "status": "in-repair",
+    "healthScore": 80,
+    "riskLevel": "low",
+    "issue": {
+      "code": "OVERHEATING",
+      "label": "Overheating Detected",
+      "detectedAt": "2025-05-14"
+    },
+    "aiConfidence": 68,
+    "recommendation": {
+      "action": "Clean & Check Fan",
+      "actionType": "clean-check",
+      "etaDate": "2025-06-11",
+      "confidence": 68
+    },
+    "owner": {
+      "name": "Divya Menon",
+      "department": "HR"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      76,
+      83,
+      82,
+      88,
+      70,
+      88,
+      82,
+      85,
+      70,
+      81
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-033",
+    "assetTag": "LAP-IT-1033",
+    "model": "Dell Latitude 5440",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 83,
+    "riskLevel": "low",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-16"
+    },
+    "aiConfidence": 79,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-08",
+      "confidence": 79
+    },
+    "owner": {
+      "name": "Vikram Singh",
+      "department": "HR"
+    },
+    "location": "Pune Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      73,
+      85,
+      83,
+      85,
+      78,
+      87,
+      77,
+      92,
+      90,
+      73
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-034",
+    "assetTag": "LAP-IT-1034",
+    "model": "HP EliteBook 840",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 72,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "KEYBOARD_FAULT",
+      "label": "Keyboard Fault",
+      "detectedAt": "2025-05-14"
+    },
+    "aiConfidence": 91,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-05",
+      "confidence": 91
+    },
+    "owner": {
+      "name": "Divya Menon",
+      "department": "Sales"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      70,
+      74,
+      72,
+      68,
+      76,
+      72,
+      72,
+      74,
+      70,
+      75
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-035",
+    "assetTag": "LAP-IT-1035",
+    "model": "Dell XPS 13",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 88,
+    "riskLevel": "low",
+    "issue": {
+      "code": "FAN_NOISE",
+      "label": "Fan Noise High",
+      "detectedAt": "2025-05-02"
+    },
+    "aiConfidence": 60,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-12",
+      "confidence": 60
+    },
+    "owner": {
+      "name": "Sneha Iyer",
+      "department": "Marketing"
+    },
+    "location": "Mumbai HQ",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      98,
+      79,
+      78,
+      85,
+      84,
+      78,
+      97,
+      82,
+      85,
+      82
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-036",
+    "assetTag": "LAP-IT-1036",
+    "model": "HP ProBook 450",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 77,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "SLOW_BOOT",
+      "label": "Slow Boot Times",
+      "detectedAt": "2025-05-15"
+    },
+    "aiConfidence": 62,
+    "recommendation": {
+      "action": "Monitor",
+      "actionType": "monitor",
+      "etaDate": "2025-06-23",
+      "confidence": 62
+    },
+    "owner": {
+      "name": "Vikram Singh",
+      "department": "Customer Success"
+    },
+    "location": "Delhi Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      72,
+      86,
+      86,
+      70,
+      72,
+      76,
+      70,
+      85,
+      67,
+      76
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-037",
+    "assetTag": "LAP-IT-1037",
+    "model": "Surface Laptop 5",
+    "category": "laptop",
+    "status": "active",
+    "healthScore": 60,
+    "riskLevel": "medium",
+    "issue": {
+      "code": "KEYBOARD_FAULT",
+      "label": "Keyboard Fault",
+      "detectedAt": "2025-05-04"
+    },
+    "aiConfidence": 67,
+    "recommendation": {
+      "action": "Schedule Service",
+      "actionType": "schedule-service",
+      "etaDate": "2025-06-23",
+      "confidence": 67
+    },
+    "owner": {
+      "name": "Vikram Singh",
+      "department": "Customer Success"
+    },
+    "location": "Hyderabad Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      69,
+      53,
+      68,
+      51,
+      61,
+      67,
+      63,
+      61,
+      52,
+      66
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  },
+  {
+    "id": "dev-038",
+    "assetTag": "DSK-IT-1038",
+    "model": "ThinkCentre M90",
+    "category": "desktop",
+    "status": "active",
+    "healthScore": 35,
+    "riskLevel": "high",
+    "issue": {
+      "code": "DISPLAY_FLICKER",
+      "label": "Display Flicker",
+      "detectedAt": "2025-05-14"
+    },
+    "aiConfidence": 81,
+    "recommendation": {
+      "action": "Run Diagnostics",
+      "actionType": "diagnostics",
+      "etaDate": "2025-06-12",
+      "confidence": 81
+    },
+    "owner": {
+      "name": "Divya Menon",
+      "department": "Marketing"
+    },
+    "location": "Bengaluru Office",
+    "purchaseDate": "2022-01-10",
+    "warrantyExpiresAt": "2025-09-30",
+    "healthHistory": [
+      38,
+      30,
+      41,
+      45,
+      33,
+      44,
+      42,
+      40,
+      39,
+      38
+    ],
+    "lastCheckedAt": "2025-05-18T06:00:00Z"
+  }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": "alt-001", "severity": "critical", "title": "Battery critical on LAP-IT-1021", "description": "Battery health has dropped below 15%. Immediate replacement recommended.", "deviceId": "dev-001", "createdAt": "2025-05-18T05:40:00Z", "isRead": false },
+  { "id": "alt-002", "severity": "warning", "title": "SSD early failure signs on LAP-IT-0978", "description": "SMART data indicates elevated reallocated sector count.", "deviceId": "dev-002", "createdAt": "2025-05-18T04:15:00Z", "isRead": false },
+  { "id": "alt-003", "severity": "warning", "title": "Overheating detected on LAP-IT-0546", "description": "CPU temperature exceeded 92°C during normal workload.", "deviceId": "dev-003", "createdAt": "2025-05-17T22:05:00Z", "isRead": true },
+  { "id": "alt-004", "severity": "info", "title": "18 warranties expiring this month", "description": "Review the warranty page to plan renewals or replacements.", "createdAt": "2025-05-17T09:00:00Z", "isRead": true },
+  { "id": "alt-005", "severity": "critical", "title": "RAM errors detected on LAP-IT-0882", "description": "Multiple correctable ECC errors logged in the last 24 hours.", "deviceId": "dev-004", "createdAt": "2025-05-16T13:22:00Z", "isRead": false }
+]

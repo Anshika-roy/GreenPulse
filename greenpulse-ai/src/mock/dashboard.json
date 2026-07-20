@@ -1,0 +1,61 @@
+{
+  "userName": "Rohit",
+  "dateLabel": "May 18, 2025",
+  "actionPlan": {
+    "devicesAnalyzed": 10256,
+    "summaryText": "AI analyzed 10,256 devices overnight. Taking action on the recommended items can save ₹3.2 Lakhs and prevent 27 kg of e-waste.",
+    "estimatedSavingsInr": 320000,
+    "ewastePreventedKg": 27,
+    "quickWins": [
+      { "icon": "battery", "label": "12 batteries need replacement" },
+      { "icon": "check", "label": "8 SSDs showing early failure signs" },
+      { "icon": "warranty", "label": "18 warranties expiring this month" }
+    ]
+  },
+  "fleetHealth": {
+    "score": 91,
+    "deltaVsLastWeek": 3,
+    "trend": [
+      { "date": "2025-05-04", "value": 84 },
+      { "date": "2025-05-06", "value": 87 },
+      { "date": "2025-05-08", "value": 85 },
+      { "date": "2025-05-10", "value": 89 },
+      { "date": "2025-05-12", "value": 86 },
+      { "date": "2025-05-14", "value": 90 },
+      { "date": "2025-05-16", "value": 88 },
+      { "date": "2025-05-18", "value": 91 }
+    ]
+  },
+  "criticalDevices": {
+    "count": 38,
+    "percentOfFleet": 0.37,
+    "trend": [
+      { "date": "2025-05-04", "value": 30 },
+      { "date": "2025-05-06", "value": 34 },
+      { "date": "2025-05-08", "value": 28 },
+      { "date": "2025-05-10", "value": 36 },
+      { "date": "2025-05-12", "value": 32 },
+      { "date": "2025-05-14", "value": 40 },
+      { "date": "2025-05-16", "value": 35 },
+      { "date": "2025-05-18", "value": 38 }
+    ]
+  },
+  "repairCost": {
+    "amountInrLakhs": 11.8,
+    "horizonLabel": "Next 30 days",
+    "trend": [
+      { "date": "2025-05-04", "value": 9.2 },
+      { "date": "2025-05-06", "value": 10.1 },
+      { "date": "2025-05-08", "value": 9.8 },
+      { "date": "2025-05-10", "value": 10.6 },
+      { "date": "2025-05-12", "value": 10.2 },
+      { "date": "2025-05-14", "value": 11.1 },
+      { "date": "2025-05-16", "value": 10.9 },
+      { "date": "2025-05-18", "value": 11.8 }
+    ]
+  },
+  "sustainability": {
+    "ewastePreventedKg": 180,
+    "co2AvoidedKg": 320
+  }
+}

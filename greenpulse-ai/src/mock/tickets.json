@@ -1,0 +1,5 @@
+[
+  { "id": "tkt-001", "subject": "Battery replacement request", "description": "ThinkPad T14 Gen 3 battery health critical.", "status": "open", "priority": "urgent", "deviceId": "dev-001", "createdAt": "2025-05-17T09:00:00Z", "updatedAt": "2025-05-18T06:00:00Z" },
+  { "id": "tkt-002", "subject": "SSD showing failure signs", "description": "SMART errors on ThinkBook 15 G4.", "status": "in-progress", "priority": "high", "deviceId": "dev-002", "createdAt": "2025-05-16T12:30:00Z", "updatedAt": "2025-05-17T08:00:00Z" },
+  { "id": "tkt-003", "subject": "Laptop overheating", "description": "Fan noise and thermal throttling reported by user.", "status": "resolved", "priority": "normal", "deviceId": "dev-003", "createdAt": "2025-05-10T10:00:00Z", "updatedAt": "2025-05-12T15:00:00Z" }
+]

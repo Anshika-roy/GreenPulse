@@ -1,0 +1,15 @@
+{
+  "suggestions": [
+    { "id": "sug-1", "icon": "risk", "label": "Which devices are high risk?" },
+    { "id": "sug-2", "icon": "budget", "label": "How much budget do I need next quarter?" },
+    { "id": "sug-3", "icon": "location", "label": "Which office has the highest failure rate?" },
+    { "id": "sug-4", "icon": "sustainability", "label": "How much e-waste did we prevent this year?" }
+  ],
+  "responses": {
+    "default": "I'm here to help you manage your device fleet smarter. Could you tell me a bit more about what you're looking for?",
+    "risk": "Right now 38 devices are flagged high risk, mostly ThinkPad T14 Gen 3 and ThinkBook 15 G4 units showing battery degradation or SSD wear. Want me to open the filtered device list?",
+    "budget": "Based on current failure predictions, I'd plan for roughly ₹11.8 Lakhs in repair costs over the next 30 days, plus battery and SSD replacements already flagged in today's action plan — about ₹3.2 Lakhs if you act on them now instead of later.",
+    "location": "Bengaluru Office currently has the highest concentration of high-risk devices, largely driven by SSD health issues. Mumbai HQ follows closely due to battery degradation across an older laptop batch.",
+    "sustainability": "This year the fleet has prevented an estimated 180 kg of e-waste and avoided 320 kg of CO2 by extending device lifespans through predictive maintenance instead of early replacement."
+  }
+}

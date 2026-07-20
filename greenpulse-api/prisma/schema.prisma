@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DeviceCategory {
+  laptop
+  desktop
+  monitor
+  printer
+  mobile
+  server
+}
+
+enum DeviceStatus {
+  active
+  in_repair
+  retired
+  in_storage
+}
+
+enum RiskLevel {
+  high
+  medium
+  low
+}
+
+enum RecommendationAction {
+  replace
+  backup_replace
+  clean_check
+  diagnostics
+  schedule_service
+  monitor
+}
+
+enum MaintenancePriority {
+  high
+  medium
+  low
+}
+
+enum AlertSeverity {
+  critical
+  warning
+  info
+}
+
+enum TicketStatus {
+  open
+  in_progress
+  resolved
+  closed
+}
+
+enum TicketPriority {
+  urgent
+  high
+  normal
+  low
+}
+
+enum ChatRole {
+  user
+  assistant
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users   User[]
+  devices Device[]
+
+  @@map("companies")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("IT Administrator")
+  avatarUrl    String?
+  companyId    String
+  company      Company  @relation(fields: [companyId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tickets      Ticket[]
+  chatMessages ChatMessage[]
+
+  @@index([companyId])
+  @@map("users")
+}
+
+model Device {
+  id                String         @id @default(cuid())
+  assetTag          String         @unique
+  model             String
+  category          DeviceCategory
+  status            DeviceStatus   @default(active)
+  healthScore       Int
+  riskLevel         RiskLevel
+  aiConfidence      Int
+  issueCode         String
+  issueLabel        String
+  issueDetectedAt   DateTime
+  recommendedAction String
+  recommendedType   RecommendationAction
+  recommendedEta    DateTime
+  ownerName         String?
+  ownerDepartment   String?
+  location          String?
+  purchaseDate      DateTime?
+  warrantyExpiresAt DateTime?
+  lastCheckedAt     DateTime       @default(now())
+  companyId         String
+  company           Company        @relation(fields: [companyId], references: [id])
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  healthHistory   DeviceHealthPoint[]
+  maintenanceLink DeviceMaintenanceEvent[]
+  alerts          Alert[]
+  tickets         Ticket[]
+  recommendations Recommendation[]
+  predictions     Prediction[]
+
+  @@index([companyId])
+  @@index([riskLevel])
+  @@map("devices")
+}
+
+/** Time series of health score snapshots, backs the sparkline on Device Detail. */
+model DeviceHealthPoint {
+  id         String   @id @default(cuid())
+  deviceId   String
+  device     Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  recordedAt DateTime @default(now())
+  value      Int
+
+  @@index([deviceId])
+  @@map("device_health_points")
+}
+
+model MaintenanceEvent {
+  id          String              @id @default(cuid())
+  date        DateTime
+  title       String
+  description String
+  location    String
+  priority    MaintenancePriority
+  createdAt   DateTime            @default(now())
+
+  devices DeviceMaintenanceEvent[]
+
+  @@map("maintenance_events")
+}
+
+/** Explicit join table (many-to-many Device <-> MaintenanceEvent) */
+model DeviceMaintenanceEvent {
+  deviceId    String
+  eventId     String
+  device      Device           @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  event       MaintenanceEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@id([deviceId, eventId])
+  @@map("device_maintenance_events")
+}
+
+model Alert {
+  id          String        @id @default(cuid())
+  severity    AlertSeverity
+  title       String
+  description String
+  deviceId    String?
+  device      Device?       @relation(fields: [deviceId], references: [id])
+  isRead      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+
+  @@index([deviceId])
+  @@map("alerts")
+}
+
+model Ticket {
+  id          String         @id @default(cuid())
+  subject     String
+  description String
+  status      TicketStatus   @default(open)
+  priority    TicketPriority @default(normal)
+  deviceId    String?
+  device      Device?        @relation(fields: [deviceId], references: [id])
+  createdById String
+  createdBy   User           @relation(fields: [createdById], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@index([deviceId])
+  @@index([createdById])
+  @@map("tickets")
+}
+
+model Recommendation {
+  id                   String   @id @default(cuid())
+  deviceId             String
+  device               Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  action               String
+  rationale            String
+  confidence           Int
+  potentialSavingsInr  Int
+  createdAt            DateTime @default(now())
+
+  @@index([deviceId])
+  @@map("recommendations")
+}
+
+/** Stored output of the /predict endpoint, kept for audit/trend analysis. */
+model Prediction {
+  id                        String    @id @default(cuid())
+  deviceId                  String
+  device                    Device    @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  riskLevel                 RiskLevel
+  confidence                Int
+  predictedFailureWindowDays Int
+  contributingFactors       String[]
+  createdAt                 DateTime  @default(now())
+
+  @@index([deviceId])
+  @@map("predictions")
+}
+
+model ChatMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  role           ChatRole
+  content        String
+  createdAt      DateTime @default(now())
+
+  @@index([conversationId])
+  @@index([userId])
+  @@map("chat_messages")
+}
