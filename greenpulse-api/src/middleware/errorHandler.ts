@@ -18,7 +18,11 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     return res.status(err.status).json({ error: err.message });
   }
 
-  console.error(err);
+  if (err instanceof Error) {
+    console.error(err.stack ?? err.message);
+  } else {
+    console.error(err);
+  }
   return res.status(500).json({ error: "Internal server error" });
 }
 

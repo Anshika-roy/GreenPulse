@@ -7,6 +7,7 @@ import { alertRoutes } from "./alertRoutes";
 import { ticketRoutes } from "./ticketRoutes";
 import { recommendationRoutes } from "./recommendationRoutes";
 import { copilotRoutes } from "./copilotRoutes";
+import { telemetryRoutes } from "./telemetryRoutes";
 
 export const apiRouter = Router();
 
@@ -18,3 +19,4 @@ apiRouter.use(alertRoutes);
 apiRouter.use(ticketRoutes);
 apiRouter.use(recommendationRoutes);
 apiRouter.use(copilotRoutes);
+apiRouter.use(telemetryRoutes);

@@ -22,10 +22,6 @@ export const deviceIdParamSchema = z.object({
   id: z.string().min(1),
 });
 
-export const deviceHealthParamSchema = z.object({
-  deviceId: z.string().min(1),
-});
-
 export const createTicketSchema = z.object({
   subject: z.string().min(3),
   description: z.string().min(10),
@@ -46,8 +42,6 @@ export const predictRequestSchema = z.object({
   deviceId: z.string().min(1),
 });
 
-export const telemetrySourceSchema = z.enum(["real_agent", "demo_simulated"]);
-
 // Mirrors the TelemetryMetricType enum in prisma/schema.prisma — keep in sync if that enum changes.
 export const telemetryMetricTypeSchema = z.enum([
   "battery_health_percent",
@@ -65,12 +59,10 @@ const telemetryReadingSchema = z.object({
   value: z.number().finite("value must be a finite number"),
   unit: z.string().optional(),
   recordedAt: z.coerce.date().optional(),
-  source: telemetrySourceSchema.optional(),
 });
 
 export const ingestTelemetrySchema = z.object({
   deviceId: z.string().min(1),
-  source: telemetrySourceSchema.optional(),
   readings: z.array(telemetryReadingSchema).min(1, "readings must be a non-empty array"),
 });
 

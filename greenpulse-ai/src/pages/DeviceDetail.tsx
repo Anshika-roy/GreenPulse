@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, MapPin, User, CalendarDays, ShieldCheck } from "lucide-react";
 import { useDevice } from "@/hooks/useDevices";
+import { ApiError } from "@/lib/apiClient";
 import { RiskBadge } from "@/components/Badges/RiskBadge";
 import { HealthBar } from "@/components/ProgressBar/HealthBar";
 import { ConfidenceBar } from "@/components/ProgressBar/ConfidenceBar";
@@ -9,13 +10,28 @@ import { Button } from "@/components/Buttons/Button";
 import { Skeleton } from "@/components/LoadingSkeleton/Skeleton";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { formatEta } from "@/services/deviceService";
+import { HealthAnalysisCard } from "@/components/Telemetry/HealthAnalysisCard";
+import { MetricHistoryCard } from "@/components/Telemetry/MetricHistoryCard";
+import type { TelemetryMetricType } from "@/types";
 
 const RISK_CHART_COLOR = { high: "#E0473A", medium: "#D9A441", low: "#3E9C49" } as const;
+
+const TELEMETRY_METRICS: TelemetryMetricType[] = [
+  "battery_health_percent",
+  "battery_cycle_count",
+  "ssd_health_percent",
+  "ssd_wear_percent",
+  "cpu_temperature_c",
+  "thermal_event",
+  "ram_usage_percent",
+  "storage_usage_percent",
+];
 
 export default function DeviceDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { data: device, isLoading } = useDevice(id);
+  const { data: device, isLoading, isError, error, refetch } = useDevice(id);
+  const deviceErrorStatus = error instanceof ApiError ? error.status : undefined;
 
   if (isLoading) {
     return (
@@ -26,13 +42,17 @@ export default function DeviceDetailPage() {
     );
   }
 
-  if (!device) {
+  if (isError || !device) {
     return (
       <EmptyState
-        title="Device not found"
-        description="This device may have been removed or retired."
-        actionLabel="Back to devices"
-        onAction={() => navigate("/devices")}
+        title={deviceErrorStatus === 404 ? "Device not found" : "Unable to load device"}
+        description={
+          deviceErrorStatus === 404
+            ? "This device may have been removed or retired."
+            : error?.message ?? "Check the backend connection and try again."
+        }
+        actionLabel={"Retry"}
+        onAction={() => (deviceErrorStatus === 404 ? navigate("/devices") : refetch())}
       />
     );
   }
@@ -55,35 +75,56 @@ export default function DeviceDetailPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="rounded-card border border-border bg-surface p-5 shadow-card lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-ink">Health Trend</h2>
-            <RiskBadge level={device.riskLevel} />
-          </div>
-          <DeviceHealthMiniChart history={device.healthHistory} color={RISK_CHART_COLOR[device.riskLevel]} />
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+        <div className="space-y-6">
+          <div className="rounded-card border border-border bg-surface p-5 shadow-card">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-sm font-semibold text-ink">Health Trend</h2>
+                <p className="mt-1 text-xs text-ink-muted">Historical device health score from the device record.</p>
+              </div>
+              <RiskBadge level={device.riskLevel} />
+            </div>
+            <DeviceHealthMiniChart history={device.healthHistory} color={RISK_CHART_COLOR[device.riskLevel]} />
 
-          <div className="mt-4 grid grid-cols-2 gap-4 border-t border-border pt-4">
-            <div>
-              <p className="text-xs text-ink-muted">Health Score</p>
-              <div className="mt-1">
-                <HealthBar value={device.healthScore} riskLevel={device.riskLevel} />
+            <div className="mt-4 grid grid-cols-2 gap-4 border-t border-border pt-4">
+              <div>
+                <p className="text-xs text-ink-muted">Health Score</p>
+                <div className="mt-1">
+                  <HealthBar value={device.healthScore} riskLevel={device.riskLevel} />
+                </div>
+              </div>
+              <div>
+                <p className="text-xs text-ink-muted">AI Confidence</p>
+                <div className="mt-1">
+                  <ConfidenceBar value={device.aiConfidence} />
+                </div>
               </div>
             </div>
-            <div>
-              <p className="text-xs text-ink-muted">AI Confidence</p>
-              <div className="mt-1">
-                <ConfidenceBar value={device.aiConfidence} />
-              </div>
+
+            <div className="mt-4 rounded-lg bg-surface-sunken p-3.5">
+              <p className="text-sm font-medium text-ink">{device.issue.label}</p>
+              <p className="mt-0.5 text-xs text-ink-muted">
+                Detected {formatEta(device.issue.detectedAt)} · Recommended: {device.recommendation.action} by {formatEta(device.recommendation.etaDate)}
+              </p>
             </div>
           </div>
 
-          <div className="mt-4 rounded-lg bg-surface-sunken p-3.5">
-            <p className="text-sm font-medium text-ink">{device.issue.label}</p>
-            <p className="mt-0.5 text-xs text-ink-muted">
-              Detected {formatEta(device.issue.detectedAt)} · Recommended: {device.recommendation.action} by{" "}
-              {formatEta(device.recommendation.etaDate)}
-            </p>
+          <HealthAnalysisCard deviceId={device.id} />
+
+          <div className="rounded-card border border-border bg-surface p-5 shadow-card">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-sm font-semibold text-ink">Telemetry History</h2>
+                <p className="mt-1 text-xs text-ink-muted">Metric-by-metric telemetry pulled from /api/telemetry.</p>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {TELEMETRY_METRICS.map((metricType) => (
+                <MetricHistoryCard key={metricType} deviceId={device.id} metricType={metricType} />
+              ))}
+            </div>
           </div>
         </div>
 

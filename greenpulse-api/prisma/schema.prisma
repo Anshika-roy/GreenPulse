@@ -69,6 +69,22 @@ enum ChatRole {
   assistant
 }
 
+enum TelemetryMetricType {
+  battery_health_percent
+  battery_cycle_count
+  ssd_wear_percent
+  ssd_health_percent
+  thermal_event
+  cpu_temperature_c
+  ram_usage_percent
+  storage_usage_percent
+}
+
+enum TelemetrySource {
+  real_agent
+  demo_simulated
+}
+
 model Company {
   id        String   @id @default(cuid())
   name      String
@@ -125,19 +141,19 @@ model Device {
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
 
-  healthHistory   DeviceHealthPoint[]
-  maintenanceLink DeviceMaintenanceEvent[]
-  alerts          Alert[]
-  tickets         Ticket[]
-  recommendations Recommendation[]
-  predictions     Prediction[]
+  healthHistory     DeviceHealthPoint[]
+  maintenanceLink   DeviceMaintenanceEvent[]
+  alerts            Alert[]
+  tickets           Ticket[]
+  recommendations   Recommendation[]
+  predictions       Prediction[]
+  telemetryReadings TelemetryReading[]
 
   @@index([companyId])
   @@index([riskLevel])
   @@map("devices")
 }
 
-/** Time series of health score snapshots, backs the sparkline on Device Detail. */
 model DeviceHealthPoint {
   id         String   @id @default(cuid())
   deviceId   String
@@ -147,6 +163,22 @@ model DeviceHealthPoint {
 
   @@index([deviceId])
   @@map("device_health_points")
+}
+
+model TelemetryReading {
+  id         String              @id @default(cuid())
+  deviceId   String
+  device     Device              @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  metricType TelemetryMetricType
+  value      Float
+  unit       String?
+  source     TelemetrySource     @default(demo_simulated)
+  recordedAt DateTime            @default(now())
+  createdAt  DateTime            @default(now())
+
+  @@index([deviceId])
+  @@index([deviceId, metricType])
+  @@map("telemetry_readings")
 }
 
 model MaintenanceEvent {
@@ -163,7 +195,6 @@ model MaintenanceEvent {
   @@map("maintenance_events")
 }
 
-/** Explicit join table (many-to-many Device <-> MaintenanceEvent) */
 model DeviceMaintenanceEvent {
   deviceId    String
   eventId     String
@@ -220,7 +251,6 @@ model Recommendation {
   @@map("recommendations")
 }
 
-/** Stored output of the /predict endpoint, kept for audit/trend analysis. */
 model Prediction {
   id                        String    @id @default(cuid())
   deviceId                  String

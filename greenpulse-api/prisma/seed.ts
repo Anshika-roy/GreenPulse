@@ -1,7 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { env } from "../src/config/env";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: env.databaseUrl,
+    },
+  },
+});
 
 const MODELS = [
   "ThinkPad T14 Gen 3", "ThinkBook 15 G4", "ThinkPad X1 Carbon", "ThinkPad E14 Gen 2", "Legion 5 Pro",

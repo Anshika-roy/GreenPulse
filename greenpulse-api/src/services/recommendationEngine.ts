@@ -1,4 +1,4 @@
-import type { Device } from "@prisma/client";
+import type { Device, RiskLevel } from "@prisma/client";
 
 /**
  * Rule-based recommendation/prediction engine — a placeholder for a real ML
@@ -6,7 +6,7 @@ import type { Device } from "@prisma/client";
  * inference service; the rest of the pipeline (endpoints, DTOs) stays the same.
  */
 export function scoreDevice(device: Device) {
-  const riskLevel = device.healthScore < 60 ? "high" : device.healthScore < 80 ? "medium" : "low";
+  const riskLevel: RiskLevel = device.healthScore < 60 ? "high" : device.healthScore < 80 ? "medium" : "low";
   const predictedFailureWindowDays = riskLevel === "high" ? 14 : riskLevel === "medium" ? 45 : 120;
 
   return {

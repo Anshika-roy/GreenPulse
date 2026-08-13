@@ -6,3 +6,5 @@ export * from "./user";
 export * from "./recommendation";
 export * from "./copilot";
 export * from "./ticket";
+export * from "./telemetry";
+export * from "./deviceHealth";

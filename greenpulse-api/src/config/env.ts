@@ -1,4 +1,5 @@
 import "dotenv/config";
+import type { SignOptions } from "jsonwebtoken";
 
 function required(name: string, fallback?: string): string {
   const value = process.env[name] ?? fallback;
@@ -9,8 +10,8 @@ function required(name: string, fallback?: string): string {
 export const env = {
   port: Number(process.env.PORT ?? 4000),
   nodeEnv: process.env.NODE_ENV ?? "development",
-  databaseUrl: required("DATABASE_URL", "postgresql://user:password@localhost:5432/greenpulse"),
+  databaseUrl: required("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/greenpulse?schema=public"),
   jwtSecret: required("JWT_SECRET", "dev-only-secret-change-me"),
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "8h",
+  jwtExpiresIn: (process.env.JWT_EXPIRES_IN ?? "8h") as SignOptions["expiresIn"],
   corsOrigin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
 };

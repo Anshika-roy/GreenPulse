@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDevices } from "@/hooks/useDevices";
+import { ApiError } from "@/lib/apiClient";
 import { ActionPlanCard } from "@/components/ActionPlan/ActionPlanCard";
 import { StatCard } from "@/components/StatCard/StatCard";
 import { StatCardSkeleton } from "@/components/LoadingSkeleton/Skeleton";
@@ -16,10 +17,11 @@ import {
   EwasteIcon,
   Co2Icon,
 } from "@/components/StatCard/StatCardIcons";
-import { DeviceTable } from "@/components/DeviceTable/DeviceTable";
 import { AICopilotPanel } from "@/components/AIChat/AICopilotPanel";
 import { MaintenanceTimeline } from "@/components/MaintenanceTimeline/MaintenanceTimeline";
 import type { Device } from "@/types";
+import { EmptyState } from "@/components/EmptyState/EmptyState";
+import { DeviceTelemetryTable } from "@/components/Telemetry/DeviceTelemetryTable";
 
 const DASHBOARD_TABLE_PAGE_SIZE = 5;
 
@@ -28,7 +30,13 @@ export default function DashboardPage() {
   const { data: summary, isLoading: summaryLoading } = useDashboard();
   const [page, setPage] = useState(1);
 
-  const { data: deviceData, isLoading: devicesLoading } = useDevices({
+  const {
+    data: deviceData,
+    isLoading: devicesLoading,
+    isError: devicesError,
+    error: devicesQueryError,
+    refetch: refetchDevices,
+  } = useDevices({
     page,
     pageSize: DASHBOARD_TABLE_PAGE_SIZE,
     sortBy: "health",
@@ -125,7 +133,7 @@ export default function DashboardPage() {
           <div className="rounded-card border border-border bg-surface shadow-card">
             <div className="flex items-center justify-between px-4 py-4">
               <h2 className="flex items-center gap-2 text-base font-semibold text-ink">
-                Devices Requiring Attention
+                Live Device Telemetry
                 <span className="rounded-pill bg-risk-high-bg px-2 py-0.5 text-xs font-medium text-risk-high">
                   {deviceData?.total ?? "—"}
                 </span>
@@ -139,17 +147,24 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            <DeviceTable
-              devices={deviceData?.data ?? []}
-              total={deviceData?.total ?? 0}
-              page={page}
-              pageSize={DASHBOARD_TABLE_PAGE_SIZE}
-              isLoading={devicesLoading}
-              onPageChange={setPage}
-              onDeviceAction={handleDeviceAction}
-              onDeviceSupport={(d) => navigate(`/tickets?deviceId=${d.id}`)}
-              onDeviceMenu={handleDeviceAction}
-            />
+            {devicesError ? (
+              <EmptyState
+                title="Unable to load devices"
+                description={(devicesQueryError as ApiError | Error)?.message ?? "Check the API connection and try again."}
+                actionLabel="Retry"
+                onAction={() => refetchDevices()}
+              />
+            ) : (
+              <DeviceTelemetryTable
+                devices={deviceData?.data ?? []}
+                total={deviceData?.total ?? 0}
+                page={page}
+                pageSize={DASHBOARD_TABLE_PAGE_SIZE}
+                isLoading={devicesLoading}
+                onPageChange={setPage}
+                onDeviceSelect={handleDeviceAction}
+              />
+            )}
           </div>
         </div>
 
