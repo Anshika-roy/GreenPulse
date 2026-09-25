@@ -95,7 +95,12 @@ export async function apiRequest<T>(
     if (res.status === 204) return undefined as T;
     return (await res.json()) as T;
   } catch (err) {
-    if (err instanceof ApiError) throw err;
+    if (err instanceof ApiError) {
+      if (err.status === 401) {
+        localStorage.removeItem("gp_token");
+      }
+      throw err;
+    }
     if (mockResolver && import.meta.env.VITE_USE_MOCK !== "false") {
       console.warn(`Backend API unreachable at ${API_BASE_URL}${path}. Falling back to mock resolver.`);
       return (await mockResolver()) as T;
