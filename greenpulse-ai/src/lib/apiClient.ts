@@ -12,7 +12,8 @@
  * needs to change — they only ever talk to /api/*.ts.
  */
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+const hasApiUrl = Boolean(import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL);
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true" || (import.meta.env.VITE_USE_MOCK !== "false" && !hasApiUrl);
 const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "/api";
 const API_BASE_URL = rawApiUrl.replace(/\/$/, "");
 
@@ -59,28 +60,37 @@ export async function apiRequest<T>(
     return (await mockResolver()) as T;
   }
 
-  const res = await fetch(`${API_BASE_URL}${path}`, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      ...authHeaders(),
-    },
-    body: body ? JSON.stringify(body) : undefined,
-    signal,
-  });
+  try {
+    const res = await fetch(`${API_BASE_URL}${path}`, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        ...authHeaders(),
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      signal,
+    });
 
-  if (!res.ok) {
-    let errorMessage = res.statusText || "Request failed";
-    try {
-      const data = await res.json();
-      errorMessage = data.error || data.message || JSON.stringify(data);
-    } catch {
-      const text = await res.text().catch(() => "");
-      if (text) errorMessage = text;
+    if (!res.ok) {
+      let errorMessage = res.statusText || "Request failed";
+      try {
+        const data = await res.json();
+        errorMessage = data.error || data.message || (typeof data === "string" ? data : JSON.stringify(data));
+      } catch {
+        const text = await res.text().catch(() => "");
+        if (text) errorMessage = text;
+      }
+      throw new ApiError(errorMessage, res.status);
     }
-    throw new ApiError(errorMessage, res.status);
-  }
 
-  if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+    if (res.status === 204) return undefined as T;
+    return (await res.json()) as T;
+  } catch (err) {
+    if (err instanceof ApiError) throw err;
+    if (mockResolver && import.meta.env.VITE_USE_MOCK !== "false") {
+      console.warn(`Backend API unreachable at ${API_BASE_URL}${path}. Falling back to mock resolver.`);
+      return (await mockResolver()) as T;
+    }
+    throw new ApiError(`Cannot connect to backend server. Ensure backend is running or set VITE_USE_MOCK=true.`, 503);
+  }
 }
