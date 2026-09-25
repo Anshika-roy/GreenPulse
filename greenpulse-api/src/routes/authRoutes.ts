@@ -11,5 +11,10 @@ export const authRoutes = Router();
 authRoutes.post("/register", authRateLimiter, validate(registerSchema), asyncHandler(register));
 authRoutes.post("/auth/register", authRateLimiter, validate(registerSchema), asyncHandler(register));
 authRoutes.post("/login", authRateLimiter, validate(loginSchema), asyncHandler(login));
+authRoutes.post("/auth/login", authRateLimiter, validate(loginSchema), asyncHandler(login));
 authRoutes.post("/logout", requireAuth, asyncHandler(logout));
+authRoutes.post("/auth/logout", requireAuth, asyncHandler(logout));
 authRoutes.get("/user", requireAuth, asyncHandler(getCurrentUser));
+authRoutes.get("/auth/user", requireAuth, asyncHandler(getCurrentUser));
+authRoutes.get("/me", requireAuth, asyncHandler(getCurrentUser));
+

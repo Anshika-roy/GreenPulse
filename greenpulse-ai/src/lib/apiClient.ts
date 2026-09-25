@@ -75,7 +75,16 @@ export async function apiRequest<T>(
       let errorMessage = res.statusText || "Request failed";
       try {
         const data = await res.json();
-        errorMessage = data.error || data.message || (typeof data === "string" ? data : JSON.stringify(data));
+        if (data.details?.fieldErrors) {
+          const firstField = Object.keys(data.details.fieldErrors)[0];
+          if (firstField && data.details.fieldErrors[firstField]?.[0]) {
+            errorMessage = `${firstField}: ${data.details.fieldErrors[firstField][0]}`;
+          } else {
+            errorMessage = data.error || data.message || "Validation failed";
+          }
+        } else {
+          errorMessage = data.error || data.message || (typeof data === "string" ? data : JSON.stringify(data));
+        }
       } catch {
         const text = await res.text().catch(() => "");
         if (text) errorMessage = text;
