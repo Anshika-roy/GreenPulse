@@ -15,12 +15,14 @@ import ReportsPage from "@/pages/Reports";
 import SustainabilityPage from "@/pages/Sustainability";
 import SettingsPage from "@/pages/Settings";
 import LoginPage from "@/pages/Login";
+import SignupPage from "@/pages/Signup";
 
 /** Route table. Sidebar and Navbar are passed into AppLayout as slots. */
 export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
 
       <Route
         element={

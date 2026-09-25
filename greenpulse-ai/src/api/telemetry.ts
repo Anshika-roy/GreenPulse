@@ -140,3 +140,17 @@ export function getDeviceTelemetry(deviceId: string, params: TelemetryQueryParam
     mockResolver: () => createMockTelemetryReadings(deviceId, params),
   });
 }
+
+/** POST /api/telemetry */
+export function postTelemetry(data: { deviceId: string; source?: string; readings: Array<{ metricType: TelemetryMetricType; value: number; unit?: string; recordedAt?: string }> }) {
+  return apiRequest<{ success: boolean; deviceId: string; readingsStored: number; timestamp: string }>("/telemetry", {
+    method: "POST",
+    body: data,
+    mockResolver: () => ({
+      success: true,
+      deviceId: data.deviceId,
+      readingsStored: data.readings.length,
+      timestamp: new Date().toISOString(),
+    }),
+  });
+}

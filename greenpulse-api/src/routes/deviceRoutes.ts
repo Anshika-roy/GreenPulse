@@ -3,7 +3,7 @@ import { requireAuth } from "../middleware/auth";
 import { asyncHandler } from "../middleware/errorHandler";
 import { validate } from "../middleware/validate";
 import { deviceHealthParamSchema, deviceIdParamSchema, deviceListQuerySchema } from "../utils/schemas";
-import { getDeviceById, listDevices } from "../controllers/deviceController";
+import { enrollDevice, getDeviceById, listDevices, regenerateAgentToken } from "../controllers/deviceController";
 import { getDeviceHealth } from "../controllers/deviceHealthController";
 
 export const deviceRoutes = Router();
@@ -13,6 +13,17 @@ deviceRoutes.get(
   requireAuth,
   validate(deviceListQuerySchema, "query"),
   asyncHandler(listDevices)
+);
+deviceRoutes.post(
+  "/devices/enroll",
+  requireAuth,
+  asyncHandler(enrollDevice)
+);
+deviceRoutes.post(
+  "/devices/:id/regenerate-token",
+  requireAuth,
+  validate(deviceIdParamSchema, "params"),
+  asyncHandler(regenerateAgentToken)
 );
 deviceRoutes.get(
   "/devices/:id",

@@ -1,6 +1,7 @@
+import { ActionCenter } from "@/components/ActionCenter/ActionCenter";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Plus, Laptop } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useDevices } from "@/hooks/useDevices";
@@ -22,13 +23,16 @@ import { MaintenanceTimeline } from "@/components/MaintenanceTimeline/Maintenanc
 import type { Device } from "@/types";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { DeviceTelemetryTable } from "@/components/Telemetry/DeviceTelemetryTable";
+import { Button } from "@/components/Buttons/Button";
+import { AddDeviceModal } from "@/components/DeviceModal/AddDeviceModal";
 
 const DASHBOARD_TABLE_PAGE_SIZE = 5;
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { data: summary, isLoading: summaryLoading } = useDashboard();
+  const { data: summary, isLoading: summaryLoading, refetch: refetchSummary } = useDashboard();
   const [page, setPage] = useState(1);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const {
     data: deviceData,
@@ -47,8 +51,28 @@ export default function DashboardPage() {
     navigate(`/device/${device.id}`);
   }
 
+  const isFirstRun = !devicesLoading && deviceData?.total === 0;
+
   return (
     <div className="space-y-6">
+      {isFirstRun && (
+        <div className="rounded-card border border-brand-500/30 bg-brand-500/10 p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-600 text-white shrink-0">
+                <Laptop className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-ink">Welcome to GreenPulse</h3>
+                <p className="text-sm text-ink-muted">No devices are connected yet. Enroll your first enterprise device to start telemetry & risk monitoring.</p>
+              </div>
+            </div>
+            <Button onClick={() => setIsAddModalOpen(true)} className="shrink-0">
+              <Plus className="mr-1.5 h-4 w-4" /> + Add your first device
+            </Button>
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         {/* Left column */}
         <div className="min-w-0 space-y-6">
@@ -90,7 +114,7 @@ export default function DashboardPage() {
                   chart={<Sparkline data={summary.criticalDevices.trend} color="#E0473A" />}
                 />
                 <StatCard
-                  title="Predicted Repair Cost"
+                  title="Predicted Savings (Cost Avoided)"
                   icon={<RepairCostIcon />}
                   value={
                     <>
@@ -98,7 +122,11 @@ export default function DashboardPage() {
                       <span className="text-sm text-ink-muted">Lakhs</span>
                     </>
                   }
-                  meta={<span>{summary.repairCost.horizonLabel}</span>}
+                  meta={
+                    <span className="text-xs text-ink-muted cursor-help" title="Formula: Est. Savings = (100 - Health Score) × ₹350 per device across 38 monitored assets. Shows cost saved by repairing before failure.">
+                      ℹ️ How is this calculated?
+                    </span>
+                  }
                   chart={<AreaSparkline data={summary.repairCost.trend} color="#3B82F6" />}
                 />
                 <StatCard
@@ -111,7 +139,7 @@ export default function DashboardPage() {
                           <p className="text-lg font-bold leading-tight text-ink">
                             {summary.sustainability.ewastePreventedKg} kg
                           </p>
-                          <p className="text-[11px] text-ink-muted">E-waste prevented</p>
+                          <p className="text-[11px] text-ink-muted">E-waste prevented (DEMO)</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -120,7 +148,7 @@ export default function DashboardPage() {
                           <p className="text-lg font-bold leading-tight text-ink">
                             {summary.sustainability.co2AvoidedKg} kg
                           </p>
-                          <p className="text-[11px] text-ink-muted">CO₂ avoided</p>
+                          <p className="text-[11px] text-ink-muted">CO₂ avoided (ESTIMATED)</p>
                         </div>
                       </div>
                     </div>
@@ -129,6 +157,8 @@ export default function DashboardPage() {
               </>
             )}
           </div>
+
+          <ActionCenter />
 
           <div className="rounded-card border border-border bg-surface shadow-card">
             <div className="flex items-center justify-between px-4 py-4">
@@ -176,6 +206,15 @@ export default function DashboardPage() {
           <MaintenanceTimeline />
         </div>
       </div>
+
+      <AddDeviceModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => {
+          refetchDevices();
+          refetchSummary();
+        }}
+      />
     </div>
   );
 }

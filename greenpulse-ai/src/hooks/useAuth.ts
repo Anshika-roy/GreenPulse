@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { authService } from "@/services/authService";
-import type { LoginRequest } from "@/types";
+import type { LoginRequest, RegisterRequest } from "@/types";
 
 export function useCurrentUser() {
   return useQuery({
@@ -19,6 +19,19 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: (credentials: LoginRequest) => authService.login(credentials),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["auth", "me"], data.user);
+      navigate("/dashboard", { replace: true });
+    },
+  });
+}
+
+export function useRegister() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: RegisterRequest) => authService.register(data),
     onSuccess: (data) => {
       queryClient.setQueryData(["auth", "me"], data.user);
       navigate("/dashboard", { replace: true });

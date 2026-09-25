@@ -1,6 +1,7 @@
 import type { TelemetryReading, TelemetrySource } from "@prisma/client";
 import { prisma } from "../config/prisma";
 import { HttpError } from "../middleware/errorHandler";
+import { analyzeDeviceHealth } from "./deviceHealthService";
 
 export interface TelemetryReadingInput {
   metricType: string;
@@ -61,7 +62,39 @@ export async function ingestTelemetry(
     )
   );
 
-  return { deviceId, count: created.length, timestamp: now.toISOString() };
+  // Recalculate health score and risk analysis based on updated telemetry
+  const allReadings = await getDeviceTelemetry(companyId, deviceId, { limit: 100 });
+  const healthAnalysis = analyzeDeviceHealth(deviceId, allReadings);
+
+  // Update Device model in database
+  await prisma.device.update({
+    where: { id: deviceId },
+    data: {
+      healthScore: healthAnalysis.healthScore,
+      riskLevel: healthAnalysis.riskLevel.toLowerCase() as never,
+      issueLabel: healthAnalysis.topRisks[0]?.message || "Normal Telemetry Baseline",
+      recommendedAction: healthAnalysis.recommendations[0] || "Routine Monitoring",
+      lastCheckedAt: now,
+      lastSeenAt: now,
+    },
+  });
+
+  // Record a historical health point for trend charts
+  await prisma.deviceHealthPoint.create({
+    data: {
+      deviceId,
+      recordedAt: now,
+      value: healthAnalysis.healthScore,
+    },
+  });
+
+  return {
+    deviceId,
+    count: created.length,
+    timestamp: now.toISOString(),
+    healthScore: healthAnalysis.healthScore,
+    riskLevel: healthAnalysis.riskLevel,
+  };
 }
 
 /** Returns recent telemetry readings for a device, newest first, optionally filtered to one metric. */

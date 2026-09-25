@@ -10,7 +10,10 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "seed": "tsx prisma/seed.ts",
-    "demo:telemetry": "tsx scripts/demoTelemetryProvider.ts"
+    "demo:telemetry": "tsx scripts/demoTelemetryProvider.ts",
+    "agent": "tsx scripts/nativeAgent.ts",
+    "ml:predict": "tsx scripts/trainMLModel.ts",
+    "test": "tsx scripts/testRegistration.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",

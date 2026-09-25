@@ -136,6 +136,10 @@ model Device {
   purchaseDate      DateTime?
   warrantyExpiresAt DateTime?
   lastCheckedAt     DateTime       @default(now())
+  enrollmentStatus    String         @default("ENROLLED")
+  agentTokenHash      String?        @unique
+  agentTokenCreatedAt DateTime?
+  lastSeenAt          DateTime?
   companyId         String
   company           Company        @relation(fields: [companyId], references: [id])
   createdAt         DateTime       @default(now())

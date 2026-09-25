@@ -12,8 +12,9 @@
  * needs to change — they only ever talk to /api/*.ts.
  */
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "/api";
+const API_BASE_URL = rawApiUrl.replace(/\/$/, "");
 
 export class ApiError extends Error {
   status: number;
@@ -69,8 +70,15 @@ export async function apiRequest<T>(
   });
 
   if (!res.ok) {
-    const message = await res.text().catch(() => res.statusText);
-    throw new ApiError(message || "Request failed", res.status);
+    let errorMessage = res.statusText || "Request failed";
+    try {
+      const data = await res.json();
+      errorMessage = data.error || data.message || JSON.stringify(data);
+    } catch {
+      const text = await res.text().catch(() => "");
+      if (text) errorMessage = text;
+    }
+    throw new ApiError(errorMessage, res.status);
   }
 
   if (res.status === 204) return undefined as T;

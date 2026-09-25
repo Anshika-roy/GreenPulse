@@ -2,6 +2,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Leaf } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLogin } from "@/hooks/useAuth";
 import { Button } from "@/components/Buttons/Button";
 
@@ -72,9 +73,12 @@ export default function LoginPage() {
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-xs text-ink-faint">
-          Mock auth — any email + a password of 4+ characters will sign you in.
-        </p>
+        <div className="mt-6 text-center text-xs text-ink-muted">
+          Don't have an account?{" "}
+          <Link to="/signup" className="font-semibold text-brand-600 hover:underline">
+            Create one
+          </Link>
+        </div>
       </div>
     </div>
   );

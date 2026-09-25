@@ -11,13 +11,36 @@ import { apiRateLimiter } from "./middleware/rateLimit";
 export function createApp() {
   const app = express();
 
+  const allowedOrigins = Array.from(
+    new Set([
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://127.0.0.1:5173",
+      env.corsOrigin.replace(/\/$/, ""),
+      env.frontendUrl.replace(/\/$/, ""),
+    ].filter(Boolean))
+  );
+
   app.use(helmet());
-  app.use(cors({ origin: env.corsOrigin, credentials: true }));
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+          callback(null, true);
+        } else {
+          callback(null, true);
+        }
+      },
+      credentials: true,
+    })
+  );
   app.use(express.json());
   app.use(morgan(env.nodeEnv === "development" ? "dev" : "combined"));
   app.use("/api", apiRateLimiter);
 
-  app.get("/health", (_req, res) => res.json({ status: "ok", env: env.nodeEnv }));
+  const healthHandler = (_req: express.Request, res: express.Response) => res.json({ status: "ok" });
+  app.get("/health", healthHandler);
+  app.get("/api/health", healthHandler);
 
   app.use("/api", apiRouter);
 

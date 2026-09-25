@@ -15,11 +15,12 @@ const REPAIR_COST_PER_CRITICAL_DEVICE_INR = 31000; // heuristic average repair t
 export async function computeDashboardSummary(companyId: string) {
   const devices = await prisma.device.findMany({ where: { companyId } });
 
-  const totalDevices = devices.length || 1;
-  const avgHealth = Math.round(devices.reduce((sum, d) => sum + d.healthScore, 0) / totalDevices);
+  const deviceCount = devices.length;
+  const totalDevices = deviceCount || 1;
+  const avgHealth = deviceCount > 0 ? Math.round(devices.reduce((sum, d) => sum + d.healthScore, 0) / deviceCount) : 100;
   const criticalDevices = devices.filter((d) => d.riskLevel === "high");
   const criticalCount = criticalDevices.length;
-  const percentCritical = Number(((criticalCount / totalDevices) * 100).toFixed(2));
+  const percentCritical = deviceCount > 0 ? Number(((criticalCount / deviceCount) * 100).toFixed(2)) : 0;
 
   const repairCostLakhs = Number(
     ((criticalCount * REPAIR_COST_PER_CRITICAL_DEVICE_INR) / 100000).toFixed(1)
@@ -41,16 +42,20 @@ export async function computeDashboardSummary(companyId: string) {
       value,
     }));
 
+  const summaryText = deviceCount === 0
+    ? "Welcome to GreenPulse! No devices are connected yet. Enroll your first enterprise device to begin hardware telemetry and risk scoring."
+    : `AI analyzed ${deviceCount.toLocaleString(
+        "en-IN"
+      )} devices overnight. Taking action on the recommended items can save ₹${(
+        estimatedSavingsInr / 100000
+      ).toFixed(1)} Lakhs and prevent e-waste.`;
+
   return {
     userName: "there",
     dateLabel: new Date().toLocaleDateString("en-IN", { month: "long", day: "numeric", year: "numeric" }),
     actionPlan: {
-      devicesAnalyzed: totalDevices,
-      summaryText: `AI analyzed ${totalDevices.toLocaleString(
-        "en-IN"
-      )} devices overnight. Taking action on the recommended items can save ₹${(
-        estimatedSavingsInr / 100000
-      ).toFixed(1)} Lakhs and prevent e-waste.`,
+      devicesAnalyzed: deviceCount,
+      summaryText,
       estimatedSavingsInr,
       ewastePreventedKg: Math.round(criticalCount * 0.7),
       quickWins: [

@@ -37,6 +37,10 @@ export interface DeviceHealthAnalysis {
   };
   topRisks: HealthRisk[];
   recommendations: string[];
+  failureProbabilityPercent: number;
+  predictedRiskTier: string;
+  topRiskDriver: string;
+  actionWindowDays: number;
 }
 
 const FACTOR_WEIGHTS = {
@@ -371,10 +375,31 @@ export function analyzeDeviceHealth(deviceId: string, readings: TelemetryReading
 
   const topRisks = risks.slice(0, 3);
 
+  // Compute logistic failure probability
+  const z =
+    -4.5 +
+    (batteryHealth ?? 90) * -0.065 +
+    (batteryCycleCount ?? 150) * 0.0035 +
+    (ssdWear ?? 15) * 0.058 +
+    (cpuTemperature ?? 55) * 0.042 +
+    (thermalEvents ?? 0) * 0.65;
+
+  const failureProbabilityPercent = Math.round((1 / (1 + Math.exp(-z))) * 100);
+  const calculatedRiskLevel = scoreToRiskLevel(healthScore);
+  const actionWindowDays = calculatedRiskLevel === "CRITICAL" || calculatedRiskLevel === "HIGH" ? 14 : calculatedRiskLevel === "MEDIUM" ? 45 : 120;
+
+  const drivers = [
+    { feature: "Battery Capacity Degradation", impact: Math.abs((100 - (batteryHealth ?? 90)) * 0.065) },
+    { feature: "High Battery Cycle Count", impact: (batteryCycleCount ?? 150) * 0.0035 },
+    { feature: "SSD Wear Level High", impact: (ssdWear ?? 15) * 0.058 },
+    { feature: "CPU Thermal Overheating", impact: (thermalEvents ?? 0) * 0.65 + ((cpuTemperature ?? 55) - 50) * 0.042 },
+  ];
+  drivers.sort((a, b) => b.impact - a.impact);
+
   return {
     deviceId,
     healthScore,
-    riskLevel: scoreToRiskLevel(healthScore),
+    riskLevel: calculatedRiskLevel,
     factors: {
       ...(battery ? { battery } : {}),
       ...(ssd ? { ssd } : {}),
@@ -384,5 +409,9 @@ export function analyzeDeviceHealth(deviceId: string, readings: TelemetryReading
     },
     topRisks,
     recommendations,
+    failureProbabilityPercent,
+    predictedRiskTier: failureProbabilityPercent > 70 ? "CRITICAL" : failureProbabilityPercent > 45 ? "HIGH" : failureProbabilityPercent > 20 ? "MEDIUM" : "LOW",
+    topRiskDriver: drivers[0]?.feature || "Normal Telemetry Baseline",
+    actionWindowDays,
   };
 }

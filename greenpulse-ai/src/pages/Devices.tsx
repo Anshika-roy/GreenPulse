@@ -5,6 +5,10 @@ import { DeviceTable } from "@/components/DeviceTable/DeviceTable";
 import { DeviceTableToolbar } from "@/components/DeviceTable/DeviceTableToolbar";
 import type { Device, DeviceCategory, DeviceListParams, RiskLevel } from "@/types";
 
+import { Plus } from "lucide-react";
+import { Button } from "@/components/Buttons/Button";
+import { AddDeviceModal } from "@/components/DeviceModal/AddDeviceModal";
+
 const PAGE_SIZE = 10;
 
 export default function DevicesPage() {
@@ -15,8 +19,9 @@ export default function DevicesPage() {
   const [category, setCategory] = useState<DeviceCategory | "all">("all");
   const [sortBy, setSortBy] = useState<DeviceListParams["sortBy"]>("health");
   const [sortDir, setSortDir] = useState<DeviceListParams["sortDir"]>("asc");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  const { data, isLoading } = useDevices({
+  const { data, isLoading, refetch } = useDevices({
     page,
     pageSize: PAGE_SIZE,
     search,
@@ -49,11 +54,17 @@ export default function DevicesPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-xl font-semibold text-ink">Devices</h1>
-        <p className="mt-1 text-sm text-ink-muted">
-          {data?.total ?? "—"} devices across your fleet.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-ink">Devices Directory</h1>
+          <p className="mt-1 text-sm text-ink-muted">
+            {data?.total ?? "—"} devices enrolled across your enterprise fleet.
+          </p>
+        </div>
+
+        <Button onClick={() => setIsAddModalOpen(true)}>
+          <Plus className="mr-1.5 h-4 w-4" /> Add Device
+        </Button>
       </div>
 
       <div className="rounded-card border border-border bg-surface shadow-card">
@@ -92,6 +103,12 @@ export default function DevicesPage() {
           onEmptyAction={resetFilters}
         />
       </div>
+
+      <AddDeviceModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSuccess={() => refetch()}
+      />
     </div>
   );
 }

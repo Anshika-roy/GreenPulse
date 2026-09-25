@@ -113,6 +113,16 @@ export function HealthAnalysisCard({ deviceId }: HealthAnalysisCardProps) {
         </div>
       </div>
 
+      <div className="mt-4 rounded-lg bg-brand-50 border border-brand-200 p-3.5 text-xs text-brand-900 dark:bg-brand-950 dark:border-brand-800 dark:text-brand-200">
+        <p className="font-semibold text-sm">💡 Risk Explainability & Failure ETA</p>
+        <p className="mt-1">
+          <strong>Estimated Action Window:</strong> {analysis.riskLevel === "CRITICAL" || analysis.riskLevel === "HIGH" ? "14 Days" : analysis.riskLevel === "MEDIUM" ? "45 Days" : "120 Days"}
+        </p>
+        <p className="mt-1 text-ink-muted dark:text-brand-300">
+          <strong>Why this score was generated:</strong> Score is derived by weighting physical telemetry factors (Battery 25%, SSD 25%, Thermal 20%, Memory 15%, Storage 15%). {analysis.topRisks.length > 0 ? `Primary risk factor: ${analysis.topRisks[0].message}` : "Device operating within normal telemetry thresholds."}
+        </p>
+      </div>
+
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-wide text-ink-muted">Top Risks</h3>

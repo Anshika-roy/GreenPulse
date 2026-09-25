@@ -10,13 +10,37 @@ import { formatInrAsLakhs } from "@/services/dashboardService";
  * Reports page: exportable fleet summary. "Export" handlers are stubbed to
  * hit a future /api/reports/export endpoint — wired for real once backend exists.
  */
+import devicesMock from "@/mock/devices.json";
+
 export default function ReportsPage() {
   const { data: summary, isLoading } = useDashboard();
   const { data: deviceData } = useDevices({ page: 1, pageSize: 1 });
 
   function handleExport(format: "pdf" | "csv") {
-    // TODO: replace with real GET /api/reports?format=... download once backend exists
-    alert(`Exporting fleet report as ${format.toUpperCase()} (mock — connect to /api/reports)`);
+    if (format === "csv") {
+      const headers = ["ID", "Asset Tag", "Model", "Category", "Status", "Health Score", "Risk Level", "Issue Label", "Recommended Action"];
+      const rows = (devicesMock as Array<Record<string, any>>).map((d) => [
+        d.id,
+        d.assetTag,
+        `"${d.model}"`,
+        d.category,
+        d.status,
+        d.healthScore,
+        d.riskLevel,
+        `"${d.issue?.label || ""}"`,
+        `"${d.recommendedAction?.label || ""}"`
+      ]);
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `greenpulse_fleet_report_${new Date().toISOString().split("T")[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.print();
+    }
   }
 
   return (

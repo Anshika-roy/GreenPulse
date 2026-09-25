@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth";
+import { requireAgentOrUserAuth } from "../middleware/agentAuth";
 import { asyncHandler } from "../middleware/errorHandler";
 import { validate } from "../middleware/validate";
 import {
@@ -13,7 +14,7 @@ export const telemetryRoutes = Router();
 
 telemetryRoutes.post(
   "/telemetry",
-  requireAuth,
+  requireAgentOrUserAuth,
   validate(ingestTelemetrySchema),
   asyncHandler(postTelemetry)
 );
