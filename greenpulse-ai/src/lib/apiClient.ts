@@ -12,10 +12,10 @@
  * needs to change — they only ever talk to /api/*.ts.
  */
 
-const hasApiUrl = Boolean(import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL);
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true" || (import.meta.env.VITE_USE_MOCK !== "false" && !hasApiUrl);
-const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "/api";
+const DEFAULT_API_URL = "https://greenpulse-production-645f.up.railway.app/api";
+const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || DEFAULT_API_URL;
 const API_BASE_URL = rawApiUrl.replace(/\/$/, "");
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 export class ApiError extends Error {
   status: number;
