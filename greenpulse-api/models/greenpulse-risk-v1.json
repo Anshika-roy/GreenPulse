@@ -1,0 +1,67 @@
+{
+  "modelName": "greenpulse-risk-v1",
+  "modelVersion": "1.0.0",
+  "trainedAt": "2026-09-25T20:06:47.756Z",
+  "algorithm": "StandardScaler + L2-Regularized Logistic Regression",
+  "datasetInfo": {
+    "type": "Deterministic Synthetic Telemetry Dataset",
+    "totalSamples": 2000,
+    "trainSplit": 1600,
+    "testSplit": 400,
+    "randomSeed": 42
+  },
+  "featureNames": [
+    "cpu_usage_percent",
+    "ram_usage_percent",
+    "cpu_temperature_c",
+    "storage_usage_percent",
+    "ssd_wear_percent",
+    "battery_health_percent",
+    "health_score"
+  ],
+  "scaler": {
+    "means": [
+      47.66375,
+      57.881875,
+      63.43,
+      57.484375,
+      49.0925,
+      67.074375,
+      59.78
+    ],
+    "stds": [
+      18.16306515810313,
+      15.960667952325023,
+      9.447888653027178,
+      24.536167301748147,
+      27.80402747355138,
+      19.038975638394405,
+      10.721839860770158
+    ]
+  },
+  "model": {
+    "weights": [
+      0.07584111594375599,
+      -0.02919181785310878,
+      0.20849052179044558,
+      -0.09372372231308711,
+      0.7317542595269879,
+      -0.5648527021787688,
+      -0.8929051293525438
+    ],
+    "intercept": -2.538394855272356
+  },
+  "evaluationMetrics": {
+    "accuracy": 0.965,
+    "precision": 0.973,
+    "recall": 0.7347,
+    "f1Score": 0.8372,
+    "rocAuc": 0.9958,
+    "confusionMatrix": {
+      "tn": 350,
+      "fp": 1,
+      "fn": 13,
+      "tp": 36
+    }
+  }
+}

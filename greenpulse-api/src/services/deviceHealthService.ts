@@ -375,24 +375,47 @@ export function analyzeDeviceHealth(deviceId: string, readings: TelemetryReading
 
   const topRisks = risks.slice(0, 3);
 
-  // Compute logistic failure probability
-  const z =
-    -4.5 +
-    (batteryHealth ?? 90) * -0.065 +
-    (batteryCycleCount ?? 150) * 0.0035 +
-    (ssdWear ?? 15) * 0.058 +
-    (cpuTemperature ?? 55) * 0.042 +
-    (thermalEvents ?? 0) * 0.65;
+  // Compute logistic failure probability using trained scikit-learn pipeline weights
+  const featureValues: Record<string, number> = {
+    cpu_usage_percent: latestValue(readings, "cpu_usage_percent") ?? 45,
+    ram_usage_percent: ramUsage ?? 50,
+    cpu_temperature_c: cpuTemperature ?? 55,
+    storage_usage_percent: storageUsage ?? 55,
+    ssd_wear_percent: ssdWear ?? 15,
+    battery_health_percent: batteryHealth ?? 90,
+    health_score: healthScore,
+  };
+
+  // Evaluate normalized logit using learned weights from models/greenpulse-risk-v1.json
+  const trainedMeans = [47.66, 57.88, 63.43, 57.48, 49.09, 67.07, 59.78];
+  const trainedStds = [18.16, 15.96, 9.45, 24.54, 27.80, 19.04, 10.72];
+  const trainedWeights = [0.0758, -0.0292, 0.2085, -0.0937, 0.7318, -0.5649, -0.8929];
+  const trainedIntercept = -2.5384;
+
+  const normalizedFeatures = [
+    (featureValues.cpu_usage_percent - trainedMeans[0]) / trainedStds[0],
+    (featureValues.ram_usage_percent - trainedMeans[1]) / trainedStds[1],
+    (featureValues.cpu_temperature_c - trainedMeans[2]) / trainedStds[2],
+    (featureValues.storage_usage_percent - trainedMeans[3]) / trainedStds[3],
+    (featureValues.ssd_wear_percent - trainedMeans[4]) / trainedStds[4],
+    (featureValues.battery_health_percent - trainedMeans[5]) / trainedStds[5],
+    (featureValues.health_score - trainedMeans[6]) / trainedStds[6],
+  ];
+
+  let z = trainedIntercept;
+  normalizedFeatures.forEach((normVal, idx) => {
+    z += trainedWeights[idx] * normVal;
+  });
 
   const failureProbabilityPercent = Math.round((1 / (1 + Math.exp(-z))) * 100);
   const calculatedRiskLevel = scoreToRiskLevel(healthScore);
   const actionWindowDays = calculatedRiskLevel === "CRITICAL" || calculatedRiskLevel === "HIGH" ? 14 : calculatedRiskLevel === "MEDIUM" ? 45 : 120;
 
   const drivers = [
-    { feature: "Battery Capacity Degradation", impact: Math.abs((100 - (batteryHealth ?? 90)) * 0.065) },
-    { feature: "High Battery Cycle Count", impact: (batteryCycleCount ?? 150) * 0.0035 },
-    { feature: "SSD Wear Level High", impact: (ssdWear ?? 15) * 0.058 },
-    { feature: "CPU Thermal Overheating", impact: (thermalEvents ?? 0) * 0.65 + ((cpuTemperature ?? 55) - 50) * 0.042 },
+    { feature: "SSD Wear Level High", impact: Math.abs(normalizedFeatures[4] * trainedWeights[4]) },
+    { feature: "Low Health Score Composite", impact: Math.abs(normalizedFeatures[6] * trainedWeights[6]) },
+    { feature: "Battery Capacity Degradation", impact: Math.abs(normalizedFeatures[5] * trainedWeights[5]) },
+    { feature: "CPU Thermal Overheating", impact: Math.abs(normalizedFeatures[2] * trainedWeights[2]) },
   ];
   drivers.sort((a, b) => b.impact - a.impact);
 

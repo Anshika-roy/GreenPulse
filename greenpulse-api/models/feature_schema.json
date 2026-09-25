@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0.0",
+  "features": [
+    {
+      "name": "cpu_usage_percent",
+      "type": "float",
+      "mean": 47.66,
+      "std": 18.16,
+      "weight": 0.0758
+    },
+    {
+      "name": "ram_usage_percent",
+      "type": "float",
+      "mean": 57.88,
+      "std": 15.96,
+      "weight": -0.0292
+    },
+    {
+      "name": "cpu_temperature_c",
+      "type": "float",
+      "mean": 63.43,
+      "std": 9.45,
+      "weight": 0.2085
+    },
+    {
+      "name": "storage_usage_percent",
+      "type": "float",
+      "mean": 57.48,
+      "std": 24.54,
+      "weight": -0.0937
+    },
+    {
+      "name": "ssd_wear_percent",
+      "type": "float",
+      "mean": 49.09,
+      "std": 27.8,
+      "weight": 0.7318
+    },
+    {
+      "name": "battery_health_percent",
+      "type": "float",
+      "mean": 67.07,
+      "std": 19.04,
+      "weight": -0.5649
+    },
+    {
+      "name": "health_score",
+      "type": "float",
+      "mean": 59.78,
+      "std": 10.72,
+      "weight": -0.8929
+    }
+  ]
+}
