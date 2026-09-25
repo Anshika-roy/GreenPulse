@@ -20,6 +20,11 @@ deviceRoutes.post(
   asyncHandler(enrollDevice)
 );
 deviceRoutes.post(
+  "/devices",
+  requireAuth,
+  asyncHandler(enrollDevice)
+);
+deviceRoutes.post(
   "/devices/:id/regenerate-token",
   requireAuth,
   validate(deviceIdParamSchema, "params"),
