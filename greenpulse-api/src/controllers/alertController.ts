@@ -5,7 +5,12 @@ import { HttpError } from "../middleware/errorHandler";
 /** GET /api/alerts */
 export async function listAlerts(req: Request, res: Response) {
   const alerts = await prisma.alert.findMany({
-    where: { device: { companyId: req.auth!.companyId } },
+    where: {
+      OR: [
+        { device: { companyId: req.auth!.companyId } },
+        { deviceId: null },
+      ],
+    },
     orderBy: { createdAt: "desc" },
   });
 
