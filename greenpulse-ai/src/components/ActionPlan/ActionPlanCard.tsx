@@ -48,7 +48,7 @@ export function ActionPlanCard({ actionPlan, onViewPlan }: ActionPlanCardProps) 
       {/* Quick wins + savings */}
       <div className="flex flex-col gap-4 border-t border-border pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
         <ul className="space-y-2.5">
-          {actionPlan.quickWins.map((item) => (
+          {(actionPlan?.quickWins ?? []).map((item) => (
             <QuickWinItem key={item.label} {...item} />
           ))}
         </ul>

@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 
-function initials(name: string) {
-  return name
-    .split(" ")
+function initials(name?: string) {
+  if (!name || typeof name !== "string") return "GP";
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "GP";
+  return parts
     .map((p) => p[0])
     .slice(0, 2)
     .join("")

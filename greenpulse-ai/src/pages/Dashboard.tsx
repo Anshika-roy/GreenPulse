@@ -80,7 +80,13 @@ export default function DashboardPage() {
             <div className="h-40 animate-pulse rounded-card border border-border bg-surface" />
           ) : (
             <ActionPlanCard
-              actionPlan={summary.actionPlan}
+              actionPlan={summary.actionPlan ?? {
+                devicesAnalyzed: 0,
+                summaryText: "Welcome to GreenPulse!",
+                estimatedSavingsInr: 0,
+                ewastePreventedKg: 0,
+                quickWins: [],
+              }}
               onViewPlan={() => navigate("/maintenance")}
             />
           )}
@@ -95,30 +101,30 @@ export default function DashboardPage() {
                   icon={<FleetHealthIcon />}
                   value={
                     <>
-                      <span className="text-3xl font-bold text-ink">{summary.fleetHealth.score}</span>
+                      <span className="text-3xl font-bold text-ink">{summary.fleetHealth?.score ?? 100}</span>
                       <span className="text-sm text-ink-muted">/100</span>
                     </>
                   }
                   meta={
                     <span className="text-brand-600">
-                      ▲ {summary.fleetHealth.deltaVsLastWeek}% vs last week
+                      ▲ {summary.fleetHealth?.deltaVsLastWeek ?? 0}% vs last week
                     </span>
                   }
-                  chart={<Sparkline data={summary.fleetHealth.trend} color="#3E9C49" />}
+                  chart={<Sparkline data={summary.fleetHealth?.trend ?? []} color="#3E9C49" />}
                 />
                 <StatCard
                   title="Critical Devices"
                   icon={<CriticalDevicesIcon />}
-                  value={<span className="text-3xl font-bold text-risk-high">{summary.criticalDevices.count}</span>}
-                  meta={<span>{summary.criticalDevices.percentOfFleet}% of total devices</span>}
-                  chart={<Sparkline data={summary.criticalDevices.trend} color="#E0473A" />}
+                  value={<span className="text-3xl font-bold text-risk-high">{summary.criticalDevices?.count ?? 0}</span>}
+                  meta={<span>{summary.criticalDevices?.percentOfFleet ?? 0}% of total devices</span>}
+                  chart={<Sparkline data={summary.criticalDevices?.trend ?? []} color="#E0473A" />}
                 />
                 <StatCard
                   title="Predicted Savings (Cost Avoided)"
                   icon={<RepairCostIcon />}
                   value={
                     <>
-                      <span className="text-3xl font-bold text-ink">₹{summary.repairCost.amountInrLakhs}</span>
+                      <span className="text-3xl font-bold text-ink">₹{summary.repairCost?.amountInrLakhs ?? 0}</span>
                       <span className="text-sm text-ink-muted">Lakhs</span>
                     </>
                   }
@@ -127,7 +133,7 @@ export default function DashboardPage() {
                       ℹ️ How is this calculated?
                     </span>
                   }
-                  chart={<AreaSparkline data={summary.repairCost.trend} color="#3B82F6" />}
+                  chart={<AreaSparkline data={summary.repairCost?.trend ?? []} color="#3B82F6" />}
                 />
                 <StatCard
                   title="Sustainability Impact"
@@ -137,7 +143,7 @@ export default function DashboardPage() {
                         <EwasteIcon />
                         <div>
                           <p className="text-lg font-bold leading-tight text-ink">
-                            {summary.sustainability.ewastePreventedKg} kg
+                            {summary.sustainability?.ewastePreventedKg ?? 0} kg
                           </p>
                           <p className="text-[11px] text-ink-muted">E-waste prevented (DEMO)</p>
                         </div>
@@ -146,7 +152,7 @@ export default function DashboardPage() {
                         <Co2Icon />
                         <div>
                           <p className="text-lg font-bold leading-tight text-ink">
-                            {summary.sustainability.co2AvoidedKg} kg
+                            {summary.sustainability?.co2AvoidedKg ?? 0} kg
                           </p>
                           <p className="text-[11px] text-ink-muted">CO₂ avoided (ESTIMATED)</p>
                         </div>
