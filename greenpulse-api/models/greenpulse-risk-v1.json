@@ -1,7 +1,7 @@
 {
   "modelName": "greenpulse-risk-v1",
   "modelVersion": "1.0.0",
-  "trainedAt": "2026-09-25T20:06:47.756Z",
+  "trainedAt": "2026-09-26T00:40:39.729Z",
   "algorithm": "StandardScaler + L2-Regularized Logistic Regression",
   "datasetInfo": {
     "type": "Deterministic Synthetic Telemetry Dataset",

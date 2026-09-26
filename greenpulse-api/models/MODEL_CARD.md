@@ -3,7 +3,7 @@
 ## Model Details
 - **Name**: `greenpulse-risk-v1`
 - **Model Type**: Logistic Regression with `StandardScaler` normalization
-- **Trained Date**: 2026-09-25
+- **Trained Date**: 2026-09-26
 - **Primary Task**: Binary prediction of enterprise device failure risk from hardware telemetry.
 
 ## Training & Testing Dataset

@@ -28,7 +28,7 @@ export async function postCopilotMessage(req: Request, res: Response) {
     data: { conversationId: convId, userId: req.auth!.userId, role: "user", content: message },
   });
 
-  const replyContent = generateCopilotReply(message, { totalDevices, criticalCount });
+  const replyContent = await generateCopilotReply(message, { totalDevices, criticalCount });
 
   const reply = await prisma.chatMessage.create({
     data: { conversationId: convId, userId: req.auth!.userId, role: "assistant", content: replyContent },
