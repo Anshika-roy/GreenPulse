@@ -24,9 +24,9 @@ export function AICopilotPanel() {
       <div className="flex items-center justify-between border-b border-border px-4 py-3.5">
         <span className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-brand-600" />
-          <span className="text-sm font-semibold text-ink">AI Copilot</span>
+          <span className="text-sm font-semibold text-ink">GreenPulse AI Assistant</span>
           <span className="rounded-pill bg-brand-50 px-2 py-0.5 text-[11px] font-medium text-brand-700">
-            Beta
+            Live AI
           </span>
         </span>
         <button type="button" aria-label="Collapse copilot" className="text-ink-faint hover:text-ink-muted">
