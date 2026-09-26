@@ -88,6 +88,30 @@ export async function ingestTelemetry(
     },
   });
 
+  // Auto-create database Alert rows when hardware risks are detected
+  for (const risk of healthAnalysis.topRisks) {
+    const existingAlert = await prisma.alert.findFirst({
+      where: {
+        deviceId,
+        title: { contains: risk.metric },
+        isRead: false,
+      },
+    });
+
+    if (!existingAlert) {
+      const severity = risk.severity === "CRITICAL" ? "critical" : risk.severity === "HIGH" ? "warning" : "info";
+      await prisma.alert.create({
+        data: {
+          deviceId,
+          severity,
+          title: `Telemetry Risk: ${risk.metric.replaceAll("_", " ")}`,
+          description: risk.message,
+          isRead: false,
+        },
+      });
+    }
+  }
+
   return {
     deviceId,
     count: created.length,
