@@ -26,12 +26,19 @@ declare global {
  * 4. Attaches `req.authenticatedDevice` and populates `req.auth.companyId`.
  */
 export async function requireAgentOrUserAuth(req: Request, res: Response, next: NextFunction) {
-  const header = req.headers.authorization;
-  if (!header?.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Missing or malformed Authorization header. Agent token or User JWT required." });
+  const authHeader = req.headers.authorization;
+  const xDeviceToken = req.headers["x-device-token"] as string | undefined;
+
+  let rawToken = "";
+  if (xDeviceToken) {
+    rawToken = xDeviceToken.trim();
+  } else if (authHeader?.startsWith("Bearer ")) {
+    rawToken = authHeader.slice("Bearer ".length).trim();
   }
 
-  const rawToken = header.slice("Bearer ".length).trim();
+  if (!rawToken) {
+    return res.status(401).json({ error: "Missing or malformed Authorization or X-Device-Token header. Agent token or User JWT required." });
+  }
 
   // Case A: Device Agent Token (starts with gp_agent_)
   if (rawToken.startsWith("gp_agent_")) {
