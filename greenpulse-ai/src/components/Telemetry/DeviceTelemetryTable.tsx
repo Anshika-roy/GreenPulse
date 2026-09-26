@@ -1,13 +1,11 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
-import { AlertTriangle } from "lucide-react";
 import { EmptyState } from "@/components/EmptyState/EmptyState";
 import { Pagination } from "@/components/DeviceTable/Pagination";
 import { Skeleton } from "@/components/LoadingSkeleton/Skeleton";
 import { RiskBadge } from "@/components/Badges/RiskBadge";
 import { HealthBar } from "@/components/ProgressBar/HealthBar";
-import { Button } from "@/components/Buttons/Button";
 import type { Device } from "@/types";
 import { getDeviceTelemetry } from "@/api/telemetry";
 import {
@@ -84,8 +82,6 @@ export function DeviceTelemetryTable({
     [devices, telemetryQueries]
   );
 
-  const hasTelemetryError = telemetryQueries.some((query) => query.isError);
-
   if (isLoading) {
     return <TableSkeleton rows={Math.min(pageSize, 5)} />;
   }
@@ -93,33 +89,6 @@ export function DeviceTelemetryTable({
   if (!devices.length) {
     return (
       <EmptyState title="No devices available" description="No device telemetry is available yet." />
-    );
-  }
-
-  if (hasTelemetryError) {
-    return (
-      <div className="space-y-3 p-4">
-        <div className="rounded-card border border-risk-high/20 bg-risk-high-bg p-4 text-risk-high">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="mt-0.5 h-4.5 w-4.5" />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium">Telemetry could not be loaded for one or more devices.</p>
-              <p className="mt-1 text-xs text-risk-high/80">
-                Check the backend connection and retry the request.
-              </p>
-            </div>
-            <Button
-              type="button"
-              size="sm"
-              variant="secondary"
-              onClick={() => telemetryQueries.forEach((query) => query.refetch())}
-            >
-              Retry
-            </Button>
-          </div>
-        </div>
-        <TableSkeleton rows={Math.min(pageSize, 5)} />
-      </div>
     );
   }
 

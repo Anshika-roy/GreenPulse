@@ -119,10 +119,12 @@ export interface TelemetrySnapshot {
 }
 
 export function buildTelemetrySnapshot(readings: TelemetryReading[]): TelemetrySnapshot {
+  const safeReadings = Array.isArray(readings) ? readings : (readings as any)?.data ?? [];
   const latestByMetric: Partial<Record<TelemetryCanonicalMetricType, TelemetryReading>> = {};
   let lastTelemetryAt: string | undefined;
 
-  for (const reading of readings) {
+  for (const reading of safeReadings) {
+    if (!reading || !reading.metricType) continue;
     const metricType = normalizeTelemetryMetricType(reading.metricType);
     if (!latestByMetric[metricType]) {
       latestByMetric[metricType] = reading;
@@ -137,7 +139,9 @@ export function buildTelemetrySnapshot(readings: TelemetryReading[]): TelemetryS
 }
 
 export function buildTelemetryHistory(readings: TelemetryReading[]): FleetTrendPoint[] {
-  return [...readings]
+  const safeReadings = Array.isArray(readings) ? readings : (readings as any)?.data ?? [];
+  return [...safeReadings]
+    .filter((r) => r && r.recordedAt)
     .sort((left, right) => new Date(left.recordedAt).getTime() - new Date(right.recordedAt).getTime())
     .map((reading) => ({ date: reading.recordedAt, value: reading.value }));
 }

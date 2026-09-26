@@ -127,18 +127,22 @@ export function createMockTelemetryReadings(deviceId: string, params: TelemetryQ
 }
 
 /** GET /api/telemetry/:deviceId */
-export function getDeviceTelemetry(deviceId: string, params: TelemetryQueryParams = {}, signal?: AbortSignal) {
+export async function getDeviceTelemetry(deviceId: string, params: TelemetryQueryParams = {}, signal?: AbortSignal) {
   const normalizedMetricType = params.metricType ? normalizeTelemetryMetricType(params.metricType) : undefined;
   const query = new URLSearchParams({
     ...(normalizedMetricType ? { metricType: normalizedMetricType } : {}),
     ...(params.limit ? { limit: String(params.limit) } : {}),
   }).toString();
 
-  return apiRequest<TelemetryReading[]>(`/telemetry/${deviceId}${query ? `?${query}` : ""}`, {
+  const res = await apiRequest<TelemetryReading[] | { data: TelemetryReading[] }>(`/telemetry/${deviceId}${query ? `?${query}` : ""}`, {
     method: "GET",
     signal,
     mockResolver: () => createMockTelemetryReadings(deviceId, params),
   });
+
+  if (Array.isArray(res)) return res;
+  if (res && Array.isArray((res as { data?: TelemetryReading[] }).data)) return (res as { data: TelemetryReading[] }).data;
+  return [];
 }
 
 /** POST /api/telemetry */
