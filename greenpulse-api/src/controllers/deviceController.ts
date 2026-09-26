@@ -26,8 +26,8 @@ export async function listDevices(req: Request, res: Response) {
 
   const where: Prisma.DeviceWhereInput = {
     companyId: req.auth!.companyId,
-    ...(riskLevel !== "all" ? { riskLevel: riskLevel as never } : {}),
-    ...(category !== "all" ? { category: category as never } : {}),
+    ...(riskLevel && riskLevel !== "all" ? { riskLevel: riskLevel as never } : {}),
+    ...(category && category !== "all" ? { category: category as never } : {}),
     ...(search
       ? {
           OR: [
